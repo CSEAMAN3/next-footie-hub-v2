@@ -1,25 +1,25 @@
-import { notFound } from "next/navigation";
-import { getBlogs, getBlogBySlug } from "@/lib/blog";
+import { getBlogBySlug } from "@/lib/blogs";
+import Comments from "@/components/Comments";
 
 type BlogPageParam = {
   blog: string;
 };
 
-export function generateStaticParams() {
-  const blogs = getBlogs();
-  return blogs.map((blog) => ({ slug: blog.slug }));
-}
-
 export default function BlogPage({ params }: { params: BlogPageParam }) {
-  const blog = getBlogBySlug(params.blog);
-
-  if (!blog) {
-    notFound();
-  }
-
+  const theBlog = getBlogBySlug(params.blog);
   return (
-    <div className="min-h-screen">
-      <p>This is the page about a {blog?.title}</p>
+    <div className="min-h-screen px-4 my-4">
+      <h2 className="font-bold mb-4">{theBlog?.title}</h2>
+      {theBlog?.content?.map((section) => {
+        return (
+          <div key={section.heading} className="mb-4">
+            <h3 className="font-bold">{section.heading}</h3>
+            <p>{section.text}</p>
+          </div>
+        );
+      })}
+      {/*@ts-ignore*/}
+      <Comments slug={params.blog} />
     </div>
   );
 }

@@ -209,7 +209,7 @@ export function getBlogs() {
 
 // get One of the blog posts (this is simulating an API or database)
 export function getBlogBySlug(slug: string) {
-  return blogs.find((post) => post.slug === slug);
+  return blogs.find((blog) => blog.slug === slug);
 }
 
 // get Blogs by category
