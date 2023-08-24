@@ -1,5 +1,8 @@
 import { WEBSITE_URL } from "@/../config";
 import CommentForm from "@/components/CommentForm";
+import { currentUser } from "@clerk/nextjs";
+import type { User } from "@clerk/nextjs/api";
+import Link from "next/link";
 
 export default async function Comments({ slug }: { slug: string }) {
   let comments = [];
@@ -10,6 +13,8 @@ export default async function Comments({ slug }: { slug: string }) {
   } catch (err) {
     console.log(err);
   }
+
+  const user: User | null = await currentUser();
 
   return (
     <div>
@@ -25,7 +30,9 @@ export default async function Comments({ slug }: { slug: string }) {
         <button type="submit">Send Comment</button>
       </form> */}
 
-      <CommentForm slug={slug} />
+      <h3>Comments</h3>
+      {/* @ts-ignore */}
+      {user ? <CommentForm slug={slug} username={user.username} /> : <Link href="/sign-in">Please sign in to comment</Link>}
 
       {/* <p>This will become the list of previous comments</p> */}
       <ul>

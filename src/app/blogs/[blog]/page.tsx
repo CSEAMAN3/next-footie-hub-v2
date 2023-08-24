@@ -1,5 +1,6 @@
 import { getBlogBySlug } from "@/lib/blogs";
 import Comments from "@/components/Comments";
+import { notFound } from "next/navigation";
 
 type BlogPageParam = {
   blog: string;
@@ -7,6 +8,11 @@ type BlogPageParam = {
 
 export default function BlogPage({ params }: { params: BlogPageParam }) {
   const theBlog = getBlogBySlug(params.blog);
+
+  if (!theBlog) {
+    notFound();
+  }
+
   return (
     <div className="min-h-screen px-4 my-4">
       <h2 className="font-bold mb-4">{theBlog?.title}</h2>

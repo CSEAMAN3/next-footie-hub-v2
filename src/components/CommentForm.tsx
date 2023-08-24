@@ -3,7 +3,7 @@ import { WEBSITE_URL } from "@/../config";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 
-export default function CommentForm({ slug }: { slug: string }) {
+export default function CommentForm({ slug, username }: { slug: string; username: string }) {
   // the router hook to trigger a page refresh
   const router = useRouter();
 
@@ -19,7 +19,7 @@ export default function CommentForm({ slug }: { slug: string }) {
 
     // get the info from the form
     // @ts-ignore
-    const username = event.target.username.value;
+    // const username = event.target.username.value;
     // @ts-ignore
     const comment = event.target.comment.value;
 
@@ -38,7 +38,7 @@ export default function CommentForm({ slug }: { slug: string }) {
 
     // reset the form inputs
     // @ts-ignore
-    event.target.username.value = "";
+    // event.target.username.value = "";
     // @ts-ignore
     event.target.comment.value = "";
 
@@ -51,9 +51,12 @@ export default function CommentForm({ slug }: { slug: string }) {
 
   return (
     <form onSubmit={handleFormData}>
-      <label htmlFor="username">Name</label>
+      {/* <label htmlFor="username">Name</label> */}
       <br />
-      <input type="text" name="username" />
+      {/* <input name="username" /> */}
+      <p>
+        commenting as <strong>{username}</strong>
+      </p>
       <br />
       <label htmlFor="comment">Comment</label>
       <br />

@@ -1,6 +1,5 @@
 import short from "short-uuid";
 import { kv } from "@vercel/kv";
-import Comments from "@/components/Comments";
 
 export async function saveComment(username: string, comment: string, slug: string) {
   // generate a unique id for the comment
